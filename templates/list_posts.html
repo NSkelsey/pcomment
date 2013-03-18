@@ -1,10 +1,13 @@
-<html>
+{% extends 'layout.html' %}
+
+{% block title %}
+{{ account.name }}'s Public Responses
+{% endblock %}
+
+{% block content %}
+
 {% for resp in responses %}
-<b> {{ resp }}</b><br>
+<div class=row> {{ resp }} </div>
 {% endfor %}
 
-
-</html>
-
-
-
+{% endblock %}

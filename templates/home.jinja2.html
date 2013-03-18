@@ -1,0 +1,8 @@
+{% extends 'layout.html' %}
+{% block body %}
+{% for account in accounts %}
+<div class=row>
+  <a href="{{ account.make_url() }}">{{ account.name }}</a>
+</div>
+{% endfor %}
+{% endblock body %}

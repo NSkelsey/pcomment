@@ -1,13 +1,25 @@
+{% from 'util.jinja2.html' import link_tag, script_tag %}
 <!DOCTYPE html>
 <html>
-    <head>
+  <head>
+    <link href="/static/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/static/bootstrap.css" rel="stylesheet">
+    <link href="/static/style.css" rel="stylesheet">
+    <title>{% block title %}{% endblock %} </title>
+  </head>
+  <body>
+    <div class="nav corner">
+      <a href="/">Home</a>
+    </div>
+    <div class="page-header">
+      {% block header %}{% endblock %}
+    </div>
 
-    </head>
-    <body>
-
-
-
-    </body>
+    <div class="funcontainer">
+      {% block body %}
+      {% endblock %}
+    </div>
+  </body>
 </html>
 
 

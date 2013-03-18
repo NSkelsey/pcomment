@@ -5,12 +5,15 @@ from sqlalchemy import *
 from sqlalchemy.orm import  sessionmaker, relationship, scoped_session, backref
 from sqlalchemy.ext.declarative import declarative_base
 import sqlalchemy as db
+from flask import url_for
 
 sql_url = 'sqlite:///' + os.getcwd() + '/freedom.db'
 Base = declarative_base()
 
-eng = create_engine(sql_url, echo=True)
-Session = scoped_session(sessionmaker(bind=eng))
+engine = create_engine(sql_url, echo=True)
+session = scoped_session(sessionmaker(bind=engine,
+                                      autoflush=True,
+                                      autocommit=True,))
 
 class Account(Base):
     __tablename__ = "account"
@@ -20,6 +23,9 @@ class Account(Base):
     def __init__(self, name, email):
         self.email = email
         self.name = name
+
+    def make_url(self):
+        return url_for('list', account_name=self.name)
 
 class Response(Base):
     __tablename__ = "response"
@@ -37,9 +43,9 @@ class Response(Base):
         self.to_email = to
         self.subject = subject
         self.date_post = datetime.now()
-    
+
     def __repr__(self):
         return '<Respo:  %s,\n %s' % (self.from_email, self.text)
 
 if __name__ == "__main__":
-    Base.metadata.create_all(eng)
+    Base.metadata.create_all(engine)

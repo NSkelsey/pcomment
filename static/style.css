@@ -1,0 +1,29 @@
+.page-header, .funcontainer {
+  margin-left: 20px;
+  margin-right:20px;
+ }
+
+
+ .page-header {
+  width: 95%;
+ }
+
+ .mod {
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 30px;
+  padding-right: 20px;
+  background-color: #F7F7F7; 
+ }
+
+ div.corner {
+   line-height: 10px;
+   font-size: 14px;
+   font-weight: bold;
+   padding-bottom: 20px;
+ }
+ div.inner-mod {
+   padding-left: 20px;
+ }
+
+
