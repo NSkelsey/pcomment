@@ -24,13 +24,14 @@ def register():
                       email=form['email'],
                       )
         if validate_register(params)[0]:
-            new_acc = Account(name=params['name'], email=['email'])
+            new_acc = Account(name=params['name'], email=params['email'])
             session.add(new_acc)
+            session.commit()
             return redirect("/")
         else:
             return redirect("/")
     else:
-        return redirect("/")
+        return render_template('register.jinja2.html') 
 
 @app.route("/a/<account_name>")
 def list_responses(account_name):
@@ -41,11 +42,12 @@ def list_responses(account_name):
 @app.route("/r/<int:response_id>")
 def show_response(response_id):
     response = session.query(Response).filter_by(id=response_id).first()
-    return render_template('post.html', response=response)
+    account = response.account
+    return render_template('post.html', response=response, account=account)
 
 @app.route('/delivered/', methods=['POST'])
 def check():
-    print 'yay'
+    print request.form.items()
     return "success!"
 
 @app.route("/message/", methods=['POST'])
@@ -61,8 +63,8 @@ def debug():
     to = dct['To']
     subject = dct['Subject']
     resp = Response(_from, to,
-                    subject, dct['stripped-html'],
-                    dct['body-plain'],)
+                    subject, dct['body-plain'],
+                    dct['body-html'],)
     session.add(resp)
     session.commit()
     return "yes"

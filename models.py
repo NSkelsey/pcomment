@@ -12,8 +12,8 @@ Base = declarative_base()
 
 engine = create_engine(sql_url, echo=True)
 session = scoped_session(sessionmaker(bind=engine,
-                                      autoflush=True,
-                                      autocommit=True,))
+                                      autoflush=False,
+                                      autocommit=False,))
 
 class Account(Base):
     __tablename__ = "account"
@@ -25,7 +25,7 @@ class Account(Base):
         self.name = name
 
     def make_url(self):
-        return url_for('list', account_name=self.name)
+        return url_for('list_responses', account_name=self.name)
 
 class Response(Base):
     __tablename__ = "response"
@@ -34,6 +34,7 @@ class Response(Base):
     to_email = Column(String)
     subject = Column(String)
     text = Column(String)
+    raw_text = Column(String)
     date_post = Column(DateTime)
     account = relationship("Account", backref=backref('responses', order_by=date_post))
 
@@ -49,7 +50,7 @@ class Response(Base):
         return '<Respo:  %s,\n %s>' % (self.from_email, self.text)
 
     def make_url(self):
-        return '/r/12323'
+        return '/r/%d' % self.id
 
 if __name__ == "__main__":
     Base.metadata.create_all(engine)
