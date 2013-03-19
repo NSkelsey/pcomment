@@ -33,11 +33,15 @@ def register():
         return redirect("/")
 
 @app.route("/a/<account_name>")
-def list(account_name):
-    print account_name
+def list_responses(account_name):
     a = session.query(Account).filter_by(name=account_name).first()
     responses = session.query(Response).filter_by(from_email=a.email).all()
     return render_template('list_posts.html', responses=responses, account=a)
+
+@app.route("/r/<int:response_id>")
+def show_response(response_id):
+    response = session.query(Response).filter_by(id=response_id).first()
+    return render_template('post.html', response=response)
 
 @app.route('/delivered/', methods=['POST'])
 def check():
@@ -56,7 +60,9 @@ def debug():
     _from = dct['From']
     to = dct['To']
     subject = dct['Subject']
-    resp = Response(_from, to, subject, dct['stripped-text']) 
+    resp = Response(_from, to,
+                    subject, dct['stripped-html'],
+                    dct['body-plain'],)
     session.add(resp)
     session.commit()
     return "yes"
@@ -67,3 +73,4 @@ def shutdown_session(exception=None):
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',debug=True)
+

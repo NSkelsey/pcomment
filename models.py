@@ -37,15 +37,19 @@ class Response(Base):
     date_post = Column(DateTime)
     account = relationship("Account", backref=backref('responses', order_by=date_post))
 
-    def __init__(self, email, to, subject, text):
+    def __init__(self, email, to, subject, text, raw):
         self.from_email = email
         self.text = text
         self.to_email = to
         self.subject = subject
+        self.raw_text = raw
         self.date_post = datetime.now()
 
     def __repr__(self):
-        return '<Respo:  %s,\n %s' % (self.from_email, self.text)
+        return '<Respo:  %s,\n %s>' % (self.from_email, self.text)
+
+    def make_url(self):
+        return '/r/12323'
 
 if __name__ == "__main__":
     Base.metadata.create_all(engine)

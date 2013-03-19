@@ -1,13 +1,19 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-{{ account.name }}'s Public Responses
+{{ account.name }}
 {% endblock %}
 
-{% block content %}
+{% block header %}
+{{ account.name }}
+{% endblock %}
+
+{% block body %}
 
 {% for resp in responses %}
-<div class=row> {{ resp }} </div>
+<div class=row> <div class='span10 offset1'>
+    <a href="{{ resp.make_url() }}">{{ resp.subject }}</a>
+</div></div>
 {% endfor %}
 
 {% endblock %}
