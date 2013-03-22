@@ -12,7 +12,7 @@ Public Comment
 <div class="hero-unit mod">
   <div class="corner">Recieved Email</div>
   <div class="inner-mod" style="white-space: pre-wrap">
-    {{ response.text }}
+    {{ response.cleaned_html|safe }}
   </div>
 </div>
 <div class="hero-unit mod">

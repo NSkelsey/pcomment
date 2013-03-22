@@ -6,7 +6,7 @@ from jinja2 import Environment, FileSystemLoader
 from flask import Flask, render_template, request, redirect
 
 from models import Response, session, Account
-from funcs import validate_register
+from funcs import validate_register, clean_html_email
 
 env = Environment(loader=FileSystemLoader(os.getcwd()+"/templates"))
 app = Flask(__name__, static_folder="./static", static_url_path="/static")
@@ -47,24 +47,25 @@ def show_response(response_id):
 
 @app.route('/delivered/', methods=['POST'])
 def check():
-    print request.form.items()
+    print "message delivered"
     return "success!"
 
 @app.route("/message/", methods=['POST'])
 def debug():
     print "="*120
+    print "Recieving message"
     print request.headers
     lst = request.form.items()
     dct = {}
-    print lst
     for k,v in lst:
         dct[k] = v
     _from = dct['From']
     to = dct['To']
     subject = dct['Subject']
+    cleaned_h = clean_html_email(dct['body-html'])
     resp = Response(_from, to,
-                    subject, dct['body-plain'],
-                    dct['body-html'],)
+                    subject, body_plain=dct['body-plain'],
+                    raw_html=dct['body-html'],cleaned_html=cleaned_h)
     session.add(resp)
     session.commit()
     return "yes"

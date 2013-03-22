@@ -33,17 +33,19 @@ class Response(Base):
     from_email = Column(String, ForeignKey('account.email'))
     to_email = Column(String)
     subject = Column(String)
-    text = Column(String)
-    raw_text = Column(String)
+    body_plain = Column(String)
+    raw_html = Column(String)
+    cleaned_html = Column(String)
     date_post = Column(DateTime)
     account = relationship("Account", backref=backref('responses', order_by=date_post))
 
-    def __init__(self, email, to, subject, text, raw):
-        self.from_email = email
-        self.text = text
-        self.to_email = to
+    def __init__(self, from_email, to_email, subject, body_plain, raw_html, cleaned_html):
+        self.from_email = from_email
+        self.to_email = to_email
         self.subject = subject
-        self.raw_text = raw
+        self.raw_html = raw_html
+        self.cleaned_html = cleaned_html
+        self.body_plain = body_plain
         self.date_post = datetime.now()
 
     def __repr__(self):
