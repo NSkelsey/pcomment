@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<form action="/r/{{ response.id }}/edit" method=POST >
+  <fieldset>
+        <label>Subject of conversation</label>
+        <input type="text" name=subject placeholder="Subject..." value={{ response.subject }} >
+        <label>Email text</label>
+        <textarea name="body" rows='9'>{{ response.cleaned_html }}</textarea>
+        <button type="submit" class="btn">Submit</button>
+  </fieldset>
+</form>
+{% endblock %}
+

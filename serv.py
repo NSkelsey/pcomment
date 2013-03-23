@@ -6,7 +6,7 @@ from jinja2 import Environment, FileSystemLoader
 from flask import Flask, render_template, request, redirect
 
 from models import Response, session, Account
-from funcs import validate_register, clean_html_email
+from funcs import validate_register, clean_html_email, pull_out_name_email
 
 env = Environment(loader=FileSystemLoader(os.getcwd()+"/templates"))
 app = Flask(__name__, static_folder="./static", static_url_path="/static")
@@ -45,6 +45,24 @@ def show_response(response_id):
     account = response.account
     return render_template('post.html', response=response, account=account)
 
+
+
+@app.route("/r/<int:response_id>/edit", methods=['POST', 'GET'])
+def edit_posted_resp(response_id):
+    if request.method == 'POST':
+       unclean_html = request.form['body']
+       subject = request.form['subject']
+       response = session.query(Response).get(response_id)
+       response.subject = subject
+       response.cleaned_html = clean_html_email(unclean_html)
+       session.add(response)
+       session.commit()
+       return redirect("/r/%s" % response_id)
+    else:
+        response = session.query(Response).get(response_id)
+        account = response.account
+        return render_template('edit_post.jinja2.html', response=response, account=account)
+
 @app.route('/delivered/', methods=['POST'])
 def check():
     print "message delivered"
@@ -59,13 +77,17 @@ def debug():
     dct = {}
     for k,v in lst:
         dct[k] = v
+    everything = json.dumps(dct)
     _from = dct['From']
     to = dct['To']
     subject = dct['Subject']
     cleaned_h = clean_html_email(dct['body-html'])
+    name, from_email = pull_out_name_email(_from)
+
     resp = Response(_from, to,
                     subject, body_plain=dct['body-plain'],
-                    raw_html=dct['body-html'],cleaned_html=cleaned_h)
+                    raw_html=dct['body-html'],cleaned_html=cleaned_h,
+                    everything=everything)
     session.add(resp)
     session.commit()
     return "yes"

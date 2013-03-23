@@ -7,6 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 import sqlalchemy as db
 from flask import url_for
 
+
 sql_url = 'sqlite:///' + os.getcwd() + '/freedom.db'
 Base = declarative_base()
 
@@ -37,19 +38,21 @@ class Response(Base):
     raw_html = Column(String)
     cleaned_html = Column(String)
     date_post = Column(DateTime)
+    everything = Column(String)
     account = relationship("Account", backref=backref('responses', order_by=date_post))
 
-    def __init__(self, from_email, to_email, subject, body_plain, raw_html, cleaned_html):
+    def __init__(self, from_email, to_email, subject, body_plain, raw_html, cleaned_html, everything):
         self.from_email = from_email
         self.to_email = to_email
         self.subject = subject
         self.raw_html = raw_html
         self.cleaned_html = cleaned_html
         self.body_plain = body_plain
+        self.everything = everything
         self.date_post = datetime.now()
 
     def __repr__(self):
-        return '<Respo:  %s,\n %s>' % (self.from_email, self.text)
+        return '<Respo:  %s,\n %s>' % (self.from_email, self.body_plain)
 
     def make_url(self):
         return '/r/%d' % self.id
