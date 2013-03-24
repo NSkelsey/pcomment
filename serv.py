@@ -41,7 +41,7 @@ def list_responses(account_name):
 
 @app.route("/r/<int:response_id>")
 def show_response(response_id):
-    response = session.query(Response).filter_by(id=response_id).first()
+    response = session.query(Response).get(response_id)
     account = response.account
     return render_template('post.html', response=response, account=account)
 
@@ -84,7 +84,7 @@ def debug():
     cleaned_h = clean_html_email(dct['body-html'])
     name, from_email = pull_out_name_email(_from)
 
-    resp = Response(_from, to,
+    resp = Response(from_email, to,
                     subject, body_plain=dct['body-plain'],
                     raw_html=dct['body-html'],cleaned_html=cleaned_h,
                     everything=everything)
