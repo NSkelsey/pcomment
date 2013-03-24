@@ -8,15 +8,21 @@
     <title>{% block title %}{% endblock %} </title>
   </head>
   <body>
-    <div class="nav corner">
-      <a href="/">Home</a>
+    <div class="nav-corner row-fluid">
+      <div class="span3 logo">
+        <h4>public record</h4>
+      </div>
+      <div class="span4 offset5">
+        <div class="inner-nc">
+          <a href="/">Home</a> |
+          <a href="/login">Login</a> | 
+          <a href="/about">About</a>
+        </div>
+      </div>
     </div>
     <div class="page-header">
-        <h5>
       {% block header %}
-      
       {% endblock %}
-        </h5>
     </div>
 
     <div class="funcontainer">
@@ -24,6 +30,7 @@
       {% endblock %}
     </div>
   </body>
-</html>
+  <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+  </html>
 
 

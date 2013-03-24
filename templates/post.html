@@ -4,13 +4,18 @@ Public Comment
 {% endblock %}
 
 {% block header %}
-<b> {{ account.name }}'s </b> response to the email with the subject <b> {{ response.subject }} </b>
+<h3><a class=subject href="{{ account.make_url() }}"> {{ account.name }}</a></h3>
+<p> responds to the email </p> 
+<h4> {{ response.subject }} </h4>
 {% endblock %}
 
 {% block body %}
 
 <div class="hero-unit mod">
-  <div class="corner">Recieved Email</div>
+  <div class="corner">
+    Recieved Email - {{ response.date_post }} -
+    <a href="{{ response.make_url() }}/edits">history</a>
+  </div>
   <div class="inner-mod" style="white-space: pre-wrap">
     {{ response.cleaned_html|safe }}
   </div>

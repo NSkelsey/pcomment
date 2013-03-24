@@ -1,18 +1,26 @@
+body {
+padding-right: 20px;
+padding-left: 20px;
+}
 .page-header, .funcontainer {
-  margin-left: 20px;
-  margin-right:20px;
  }
 
-
- .page-header {
-  width: 95%;
+ div.page-header {
+  margin-top: 10px;
  }
 
- .mod {
+ div.page-header > * {
+  display: inline;
+  margin-right: 5px;
+ }
+ div.page-header p {
+  font-size: 14px;
+ }
+
+ div.mod {
   padding-top: 10px;
   padding-left: 10px;
   padding-bottom: 30px;
-  padding-right: 20px;
   background-color: #F7F7F7; 
  }
 
@@ -20,10 +28,26 @@
    line-height: 10px;
    font-size: 14px;
    font-weight: bold;
-   padding-bottom: 20px;
+   padding-bottom: 20px
  }
  div.inner-mod {
    padding-left: 20px;
  }
+
+ div.nav-corner {
+ }
+div.inner-nc {
+float: right;
+}
+
+
+ a.subject {
+  color: black;
+ }
+
+ a.subject:visited {
+   color: #555555;
+ }
+
 
 
