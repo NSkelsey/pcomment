@@ -40,11 +40,11 @@ def respond_confirming_post(response, account):
     r = requests.post(
             "https://api.mailgun.net/v2/pcomment.mailgun.org/messages",
             auth=("api", "key-3d1gtj048oxhghiwh4v2h9tvx-l3hew7"),
-            data={"from": "ROBOT@nskelsey.com",
+            data={"from": "brobot <nicks@pcomment.mailgun.org>",
                 "to": [account.email],
-                'subject': 'RE: %' % response.subject,
-                'text': 'The email was sucessfully posted. Here is the url %s' % response.make_url(),
-                "html": '<h2>Differing text</h2>',
+                'subject': 'RE: %s' % response.subject,
+                'text': 'The email was sucessfully posted. Here is the url (%s)' % response.make_url(),
+                'html': 'The email was sucessfully posted. Here is the <a href=%s >url</a>' % response.make_url(),
                 'o:tag':'posted',
                 })
     print r

@@ -4,7 +4,6 @@ import os
 from sqlalchemy import *
 from sqlalchemy.orm import  sessionmaker, relationship, scoped_session, backref
 from sqlalchemy.ext.declarative import declarative_base
-import sqlalchemy as db
 from flask import url_for
 
 
@@ -41,15 +40,15 @@ class Response(Base):
     everything = Column(String)
     account = relationship("Account", backref=backref('responses', order_by=date_post))
 
-    def __init__(self, from_email, to_email, subject, body_plain, raw_html, cleaned_html, everything):
-        self.from_email = from_email
-        self.to_email = to_email
-        self.subject = subject
-        self.raw_html = raw_html
-        self.cleaned_html = cleaned_html
-        self.body_plain = body_plain
-        self.everything = everything
-        self.date_post = datetime.now()
+    def __init__(self, *args, **kwargs):
+        self.from_email = kwargs.get('from_email')
+        self.to_email = kwargs.get('to_email')
+        self.subject = kwargs.get('subject')
+        self.raw_html = kwargs.get('raw_html')
+        self.cleaned_html = kwargs.get('cleaned_html')
+        self.body_plain = kwargs.get('body_plain')
+        self.everything = kwargs.get('everything')
+        self.date_post = kwargs.get('date_post', datetime.now())
 
     def __repr__(self):
         return '<Respo:  %s,\n %s>' % (self.from_email, self.body_plain)
