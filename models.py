@@ -53,8 +53,11 @@ class Response(Base):
     def __repr__(self):
         return '<Respo:  %s,\n %s>' % (self.from_email, self.body_plain)
 
-    def make_url(self):
-        return '/r/%d' % self.id
+    def make_url(self, full=False):
+        if full:
+            return 'http://50.17.215.201:5000/r/%d' % self.id
+        else:
+            return '/r/%d' % self.id
 
 if __name__ == "__main__":
     Base.metadata.create_all(engine)
