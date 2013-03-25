@@ -13,7 +13,7 @@ Public Comment
 
 <div class="hero-unit mod">
   <div class="corner">
-    Recieved Email - {{ response.date_post }} -
+    Recieved Email - {{ response.date_post.strftime("%I:%M %p, %d %B, %Y") }} -
     <a href="{{ response.make_url() }}/edits">history</a>
   </div>
   <div class="inner-mod" style="white-space: pre-wrap">

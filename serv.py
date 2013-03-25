@@ -6,7 +6,8 @@ from jinja2 import Environment, FileSystemLoader
 from flask import Flask, render_template, request, redirect
 
 from models import Response, session, Account
-from funcs import validate_register, clean_html_email, pull_out_name_email
+from funcs import (validate_register, clean_html_email, 
+                   pull_out_name_email, respond_confirming_post)
 
 env = Environment(loader=FileSystemLoader(os.getcwd()+"/templates"))
 app = Flask(__name__, static_folder="./static", static_url_path="/static")
@@ -83,13 +84,14 @@ def debug():
     subject = dct['Subject']
     cleaned_h = clean_html_email(dct['body-html'])
     name, from_email = pull_out_name_email(_from)
-
+    account = session.query(Account).get(from_email)
     resp = Response(from_email, to,
                     subject, body_plain=dct['body-plain'],
                     raw_html=dct['body-html'],cleaned_html=cleaned_h,
                     everything=everything)
     session.add(resp)
     session.commit()
+    respond_confirming_post(resp, account)
     return "yes"
 
 @app.teardown_request
