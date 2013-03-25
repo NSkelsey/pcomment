@@ -1,5 +1,6 @@
 import re
 import chardet
+import json
 
 import requests
 from bs4 import BeautifulSoup
@@ -37,14 +38,16 @@ def pull_out_name_email(email_text):
         return email_text
 
 def respond_confirming_post(response, account):
+    all_headers = json.loads(response.everything)
     r = requests.post(
             "https://api.mailgun.net/v2/pcomment.mailgun.org/messages",
             auth=("api", "key-3d1gtj048oxhghiwh4v2h9tvx-l3hew7"),
-            data={"from": "brobot <nicks@pcomment.mailgun.org>",
+            data={"from": "nick@pcomment.mailgun.org",
                 "to": [account.email],
                 'subject': 'RE: %s' % response.subject,
                 'text': 'The email was sucessfully posted. Here is the url (%s)' % response.make_url(),
                 'html': 'The email was sucessfully posted. Here is the <a href=%s >url</a>' % response.make_url(),
+                'In-Reply-To': all_headers['Message-Id'],
                 'o:tag':'posted',
                 })
     print r
