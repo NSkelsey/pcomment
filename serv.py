@@ -8,6 +8,7 @@ from flask import Flask, render_template, request, redirect
 from models import Response, session, Account
 from funcs import (validate_register, clean_html_email, 
                    pull_out_name_email, respond_confirming_post)
+from forms import EditForm
 
 env = Environment(loader=FileSystemLoader(os.getcwd()+"/templates"))
 app = Flask(__name__, static_folder="./static", static_url_path="/static")
@@ -46,23 +47,25 @@ def show_response(response_id):
     account = response.account
     return render_template('post.html', response=response, account=account)
 
-
-
 @app.route("/r/<int:response_id>/edit", methods=['POST', 'GET'])
 def edit_posted_resp(response_id):
-    if request.method == 'POST':
-       unclean_html = request.form['body']
-       subject = request.form['subject']
+    form = EditForm()
+    if request.method == 'POST' and form.validate():
        response = session.query(Response).get(response_id)
-       response.subject = subject
-       response.cleaned_html = clean_html_email(unclean_html)
+       form.populate_obj(response)
+       response.cleaned_html = clean_html_email(response.raw_html)
        session.add(response)
        session.commit()
        return redirect("/r/%s" % response_id)
     else:
         response = session.query(Response).get(response_id)
         account = response.account
-        return render_template('edit_post.jinja2.html', response=response, account=account)
+        response.raw_html = response.cleaned_html
+        form = EditForm(obj=response)
+        return render_template('edit_post.jinja2.html',
+                response=response,
+                account=account,
+                form=form,)
 
 @app.route('/delivered/', methods=['POST'])
 def check():

@@ -2,7 +2,12 @@ from datetime import datetime
 import os
 
 from sqlalchemy import *
-from sqlalchemy.orm import  sessionmaker, relationship, scoped_session, backref
+from sqlalchemy.orm import (
+        sessionmaker, 
+        relationship,
+        scoped_session,
+        backref,
+        )
 from sqlalchemy.ext.declarative import declarative_base
 from flask import url_for
 
@@ -37,6 +42,7 @@ class Response(Base):
     raw_html = Column(String)
     cleaned_html = Column(String)
     date_post = Column(DateTime)
+    use_html = Column(Boolean)
     everything = Column(String)
     account = relationship("Account", backref=backref('responses', order_by=date_post))
 

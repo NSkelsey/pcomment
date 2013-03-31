@@ -1,15 +1,13 @@
 {% extends 'layout.html' %}
+{% from "formhelpers.html" import render_field %}
 
 {% block body %}
 
 <form action="/r/{{ response.id }}/edit" method=POST >
-  <fieldset>
-        <label>Subject of conversation</label>
-        <input type="text" name=subject placeholder="Subject..." value={{ response.subject }} >
-        <label>Email text</label>
-        <textarea name="body" rows='9'>{{ response.cleaned_html }}</textarea>
-        <button type="submit" class="btn">Submit</button>
-  </fieldset>
+    {{ render_field(form.subject) }}
+    {{ render_field(form.raw_html, class="html-edit mod") }}
+    {{ render_field(form.use_html) }}
+    <button type="submit" class="btn btn-primary">submit</button>
 </form>
 {% endblock %}
 

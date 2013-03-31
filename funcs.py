@@ -12,6 +12,11 @@ def validate_register(params):
 VALID_TAGS = ['strong', 'em', 'p', 'ul', 'li', 'br',
         'div', 'blockquote', 'a', 'span', 'pre', 'code']
 
+# from http://stackoverflow.com/questions/997078/email-regular-expression
+email_regex = re.compile('(([0-9a-zA-Z][-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.+[a-zA-Z]{2,9}))')
+
+f = lambda m: m.groups()[1] + "--at--" + m.groups()[2]
+
 #only for gmail emails right now
 def clean_html_email(html):
     soup = BeautifulSoup(html)
@@ -23,6 +28,7 @@ def clean_html_email(html):
     html = unicode(html,'ISO-8859-1')
     html = html.replace(u'\u00A0', " ")
     html = html.replace(u'\xc2', '')
+    html = re.sub(email_regex, f, html)
     return html
 
 

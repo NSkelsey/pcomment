@@ -5,19 +5,19 @@ padding-left: 20px;
 .page-header, .funcontainer {
  }
 
- div.page-header {
+ div.header {
   margin-top: 10px;
  }
 
- div.page-header > * {
+ div.header > * {
   display: inline;
   margin-right: 5px;
  }
- div.page-header p {
+ div.header p {
   font-size: 14px;
  }
 
- div.mod {
+ .mod {
   padding-top: 10px;
   padding-left: 10px;
   padding-bottom: 30px;
@@ -35,6 +35,7 @@ padding-left: 20px;
  }
 
  div.nav-corner {
+   border-bottom: 1px solid #EEE;
  }
 div.inner-nc {
 float: right;
@@ -49,5 +50,9 @@ float: right;
    color: #555555;
  }
 
+textarea.html-edit {
+  width: 80%;
+ 
+}
 
 

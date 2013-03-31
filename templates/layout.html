@@ -5,6 +5,13 @@
     <link href="/static/bootstrap-responsive.css" rel="stylesheet">
     <link href="/static/bootstrap.css" rel="stylesheet">
     <link href="/static/style.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://www.jacklmoore.com/js/jquery.autosize.js"> </script>
+    <script> $(document).ready(function(){
+    $('textarea').autosize();   
+    }); 
+  </script>
+
     <title>{% block title %}{% endblock %} </title>
   </head>
   <body>
@@ -20,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="page-header">
+    <div class="header">
       {% block header %}
       {% endblock %}
     </div>
