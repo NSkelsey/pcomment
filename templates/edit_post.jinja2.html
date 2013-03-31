@@ -6,7 +6,6 @@
 <form action="/r/{{ response.id }}/edit" method=POST >
     {{ render_field(form.subject) }}
     {{ render_field(form.raw_html, class="html-edit mod") }}
-    {{ render_field(form.use_html) }}
     <button type="submit" class="btn btn-primary">submit</button>
 </form>
 {% endblock %}

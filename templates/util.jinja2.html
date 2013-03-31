@@ -5,3 +5,11 @@
 {%- macro script_tag(location) -%}
         <script src="/static/js/{{ location }}.js"></script>
 {%- endmacro -%}
+
+{%- macro render_body(response) -%}
+{% if response.use_html %}
+  {{ response.clean_html|safe }}
+{% else %}
+  {{ response.body_plain }}
+{% endif %}
+{%- endmacro -%}

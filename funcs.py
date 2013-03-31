@@ -19,15 +19,15 @@ f = lambda m: m.groups()[1] + "--at--" + m.groups()[2]
 
 #only for gmail emails right now
 def clean_html_email(html):
+    #html = unicode(html,'ISO-8859-1')
+    #html = html.replace(u'\u00A0', " ")
+    #html = html.replace(u'\xc2', '')
     soup = BeautifulSoup(html)
     for tag in soup.findAll(True):
         tag.attrs = None
         if tag.name not in VALID_TAGS:
             tag.extract()
     html = soup.renderContents()
-    html = unicode(html,'ISO-8859-1')
-    html = html.replace(u'\u00A0', " ")
-    html = html.replace(u'\xc2', '')
     html = re.sub(email_regex, f, html)
     return html
 

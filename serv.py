@@ -49,7 +49,7 @@ def show_response(response_id):
 
 @app.route("/r/<int:response_id>/edit", methods=['POST', 'GET'])
 def edit_posted_resp(response_id):
-    form = EditForm()
+    form = EditForm(request.form)
     if request.method == 'POST' and form.validate():
        response = session.query(Response).get(response_id)
        form.populate_obj(response)

@@ -17,8 +17,7 @@ Public Comment
     <a href="{{ response.make_url() }}/edits">history</a> 
     - <a href="{{ response.make_url() }}/edit">edit</a>
   </div>
-  <div class="inner-mod" style="white-space: pre-wrap">
-    {{ response.cleaned_html|safe }}
+  <div class="inner-mod" style="white-space: pre-wrap">{{ response.cleaned_html|safe }}
   </div>
 </div>
 <div class="hero-unit mod">
