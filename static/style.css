@@ -7,7 +7,7 @@ body {
 
 div.header {
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 div.header > * {
@@ -60,6 +60,7 @@ textarea.html-edit {
 
 #disqus_thread {
   margin-top: 50px;
+  width: 100%;
 }
 
 #restoemail {

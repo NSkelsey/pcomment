@@ -39,6 +39,9 @@ def register():
 def list_responses(account_name):
     a = session.query(Account).filter_by(name=account_name).first()
     responses = session.query(Response).filter_by(from_email=a.email).all()
+    if len(responses) == 0:
+        message = "This User has made no public statements."
+        return render_template('list_posts.html', responses=responses, account=a, message=message)
     return render_template('list_posts.html', responses=responses, account=a)
 
 @app.route("/r/<int:response_id>")
@@ -90,8 +93,8 @@ def debug():
     account = session.query(Account).get(f_e)
     resp = Response(from_email=f_e, to_email=to,
                     subject=subject, body_plain=dct['body-plain'],
-                    raw_html=dct['body-html'],cleaned_html=cleaned_h,
-                    everything=everything)
+                    cleaned_html=cleaned_h,
+                    everything=everything,)
     session.add(resp)
     session.commit()
     respond_confirming_post(resp, account)
@@ -101,10 +104,14 @@ def debug():
 def about():
     return render_template("about.html")
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
 @app.teardown_request
 def shutdown_session(exception=None):
     session.remove()
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',debug=True)
+    app.run(host='0.0.0.0', debug=False)
 

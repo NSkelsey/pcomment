@@ -10,6 +10,9 @@
 
 {% block body %}
 
+{% if message is defined %}
+<p> {{ message }} </p>
+{% endif %}
 {% for resp in responses %}
 <div class=row> <div class='span10 offset1'>
     <a href="{{ resp.make_url() }}">{{ resp.subject }}</a>

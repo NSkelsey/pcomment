@@ -20,8 +20,8 @@ f = lambda m: m.groups()[1] + "--at--" + m.groups()[2]
 #only for gmail emails right now
 def clean_html_email(html):
     #html = unicode(html,'ISO-8859-1')
-    #html = html.replace(u'\u00A0', " ")
-    #html = html.replace(u'\xc2', '')
+    html = html.replace(u'\u00A0', " ")
+    html = html.replace(u'\xc2', '')
     soup = BeautifulSoup(html)
     for tag in soup.findAll(True):
         tag.attrs = None
@@ -48,11 +48,11 @@ def respond_confirming_post(response, account):
     r = requests.post(
             "https://api.mailgun.net/v2/pcomment.mailgun.org/messages",
             auth=("api", "key-3d1gtj048oxhghiwh4v2h9tvx-l3hew7"),
-            data={"from": "nick@pcomment.mailgun.org",
+            data={"from": "general@pcomment.mailgun.org",
                 "to": [account.email],
                 'subject': 'RE: %s' % response.subject,
-                'text': 'The email was sucessfully posted. Here is the url (%s)' % response.make_url(),
-                'html': 'The email was sucessfully posted. Here is the <a href=%s >url</a>' % response.make_url(),
+                'text': 'The email was sucessfully posted. Here is the url (http://50.17.215.201:5000/%s)' % response.make_url(),
+                'html': 'The email was sucessfully posted. Here is the <a href="http://50.17.215.201:5000/%s" >url</a>' % response.make_url(),
                 'In-Reply-To': all_headers.get('Message-Id'),
                 'o:tag':'posted',
                 })
