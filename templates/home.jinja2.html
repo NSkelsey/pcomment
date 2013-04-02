@@ -1,8 +1,11 @@
 {% extends 'layout.html' %}
+{% block header %}
+<h5> People using our service </h5>
+{% endblock %}
 {% block body %}
 {% for account in accounts %}
-<div class=row>
+<div class=row> <div class='span10 offset1'>
   <a href="{{ account.make_url() }}">{{ account.name }}</a>
-</div>
+</div></div>
 {% endfor %}
 {% endblock body %}

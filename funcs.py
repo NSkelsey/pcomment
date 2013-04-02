@@ -10,7 +10,7 @@ def validate_register(params):
 
 
 VALID_TAGS = ['strong', 'em', 'p', 'ul', 'li', 'br',
-        'div', 'blockquote', 'a', 'span', 'pre', 'code']
+        'div', 'blockquote', 'a', 'span', 'pre', 'code', 'b']
 
 # from http://stackoverflow.com/questions/997078/email-regular-expression
 email_regex = re.compile('(([0-9a-zA-Z][-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.+[a-zA-Z]{2,9}))')
@@ -53,7 +53,7 @@ def respond_confirming_post(response, account):
                 'subject': 'RE: %s' % response.subject,
                 'text': 'The email was sucessfully posted. Here is the url (%s)' % response.make_url(),
                 'html': 'The email was sucessfully posted. Here is the <a href=%s >url</a>' % response.make_url(),
-                'In-Reply-To': all_headers['Message-Id'],
+                'In-Reply-To': all_headers.get('Message-Id'),
                 'o:tag':'posted',
                 })
     print r

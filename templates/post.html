@@ -5,7 +5,8 @@ Public Comment
 
 {% block header %}
 <h3><a class=subject href="{{ account.make_url() }}"> {{ account.name }}</a></h3>
-<p> responds to the email </p> 
+<br>
+<p id=restoemail> responds to the email </p> 
 <h4> {{ response.subject }} </h4>
 {% endblock %}
 
@@ -21,8 +22,26 @@ Public Comment
   </div>
 </div>
 <div class="hero-unit mod">
-  <div class="corner">Public Response</div>
+  <div class="corner">Public Response - <a href=/>graphs</a></div>
   <div class="inner-mod">
+
+     <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'for--the--record'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+
   </div>
 </div>
 

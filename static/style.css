@@ -1,58 +1,67 @@
 body {
-padding-right: 20px;
-padding-left: 20px;
+  padding-right: 20px;
+  padding-left: 20px;
 }
 .page-header, .funcontainer {
- }
+}
 
- div.header {
+div.header {
   margin-top: 10px;
- }
+  margin-bottom: 10px;
+}
 
- div.header > * {
+div.header > * {
   display: inline;
   margin-right: 5px;
- }
- div.header p {
+}
+div.header p {
   font-size: 14px;
- }
+}
 
- .mod {
+.mod {
   padding-top: 10px;
   padding-left: 10px;
   padding-bottom: 30px;
   background-color: #F7F7F7; 
- }
+}
 
- div.corner {
-   line-height: 10px;
-   font-size: 14px;
-   font-weight: bold;
-   padding-bottom: 20px
- }
- div.inner-mod {
-   padding-left: 20px;
- }
+div.corner {
+  line-height: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  padding-bottom: 20px
+}
+div.inner-mod {
+  margin-top: 10px;
+  padding-left: 20px;
+}
 
- div.nav-corner {
-   border-bottom: 1px solid #EEE;
- }
+div.nav-corner {
+  border-bottom: 1px solid #EEE;
+}
+
 div.inner-nc {
-float: right;
+  float: right;
 }
 
 
- a.subject {
+a.subject {
   color: black;
- }
+}
 
- a.subject:visited {
-   color: #555555;
- }
+a.subject:visited {
+  color: #555555;
+}
 
 textarea.html-edit {
   width: 80%;
- 
+
 }
 
+#disqus_thread {
+  margin-top: 50px;
+}
 
+#restoemail {
+  margin-left: 10px;
+}

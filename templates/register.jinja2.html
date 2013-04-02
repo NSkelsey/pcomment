@@ -3,6 +3,13 @@
 
 {% block header %}
 <h4>Register an Account</h4>
+<br><br>
+<p> To register a temporary account put in your
+email and the name you wish others to see.
+Then you can send emails to general@pcomment.mailgun.org
+and it will be posted to the site!</p>
+<br>
+<p></p>
 {% endblock %}
 
 {% block body %}
@@ -10,12 +17,13 @@
   <fieldset>
     <input name='name'
     type='text'
-    value='ex1'
-    placeholder='derp'>
+    value='example name'
+    placeholder='name'>
 
     <input name='email'
     type='text'
     value='value@test.com'
+    placeholder='email'
     >
 
   <div class='form-actions'>

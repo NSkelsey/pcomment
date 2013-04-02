@@ -97,6 +97,10 @@ def debug():
     respond_confirming_post(resp, account)
     return "yes"
 
+@app.route("/about/")
+def about():
+    return render_template("about.html")
+
 @app.teardown_request
 def shutdown_session(exception=None):
     session.remove()
